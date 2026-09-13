@@ -33,6 +33,54 @@ Hãy nhấn các câu hỏi mẫu dưới đây hoặc nhập câu hỏi bất k
     '📏 Liệu Hùng có thể đạt mốc 1m78 tuổi 18 nếu tập bóng rổ 4 buổi/tuần?',
   ];
 
+  const getFallbackAnswer = (q: string): string => {
+    const qLower = q.toLowerCase();
+    if (qLower.includes('bóng rổ') || qLower.includes('nhảy') || qLower.includes('chiều cao')) {
+      return `### 🏀 Lộ Trình Tăng Chiều Cao & Bật Nhảy Dành Cho Hùng (Lớp 7 - 1m57)
+
+**1. Bài tập kích thích sụn xương phát triển (15-20 phút/ngày):**
+* 🪢 **Nhảy dây tốc độ:** 300 - 500 cái mỗi ngày (chia 3 hiệp). Tác động lực nén nhịp nhàng lên đĩa sụn tiếp hợp ở đầu gối.
+* ⛹️ **Bật nhảy chạm vành / chạm lưới rổ:** 20 lần x 3 hiệp. Giúp kéo giãn cơ thể và kích thích hormone HGH.
+* 🏀 **Dẫn bóng Pound Dribble & Lên rổ:** 15 phút rèn sự linh hoạt, đốt cháy 250 kcal mỡ thừa.
+
+**2. Chiến lược giấc ngủ đón Hormone HGH:**
+* Ngủ trước **22:15**. Hormone tăng trưởng (HGH) tiết ra mạnh nhất từ **23:00 - 02:00 sáng** khi vào giấc ngủ sâu.
+* Cất điện thoại khỏi giường trước 21h30 để tránh ánh sáng xanh chặn đứng Melatonin.`;
+    } else if (qLower.includes('ăn') || qLower.includes('dinh dưỡng') || qLower.includes('giảm mỡ') || qLower.includes('cân')) {
+      return `### 🥗 Thực Đơn Giảm Mỡ - Tăng Cơ Cho Hùng (60kg - 1m57)
+
+**1. Thay thế đồ ăn vặt khi chơi Roblox & FC Mobile:**
+* ❌ *Cắt bỏ:* Nước ngọt có ga, trà sữa, snack bim bim khoai tây chiên, mì tôm đêm.
+* ✅ *Thay bằng:* Nước lọc mát 2L/ngày, 1 quả táo giòn, dưa chuột thái lát hoặc 1 hộp sữa chua ít đường.
+
+**2. Quy tắc đĩa ăn 1/2 - 1/4 - 1/4:**
+* 🥬 **1/2 Đĩa:** Rau xanh (rau luộc, súp lơ, dưa leo) giúp no lâu, chống hấp thu mỡ thừa.
+* 🍗 **1/4 Đĩa:** Protein sạch (thịt nạc, ức gà, trứng luộc, cá, đậu phụ) cung cấp 75-85g đạm xây dựng cơ bắp.
+* 🍚 **1/4 Đĩa:** Tinh bột vừa đủ (1 chén cơm trắng hoặc khoai lang luộc).`;
+    } else if (qLower.includes('tiktok') || qLower.includes('roblox') || qLower.includes('game') || qLower.includes('nghiện')) {
+      return `### 📱 Chiến Thuật Cai Nghiện TikTok & Roblox Bứt Phá Kỷ Luật
+
+**1. Quy tắc "Game là phần thưởng":**
+* Chỉ bật FC Mobile & Roblox tối đa **45 phút/ngày** sau khi đã học xong bài tập và tập bóng rổ xong.
+
+**2. Thoát bẫy Dopamine ngắn:**
+* Thuật toán video ngắn 15s khiến não bị nhờn cảm xúc, dẫn tới lười học và uể oải. Mỗi khi muốn lướt TikTok, hãy đứng dậy nhảy dây 50 cái hoặc uống một ly nước mát.
+
+**3. Tạo môi trường ngủ không thiết bị:**
+* Đặt điện thoại sạc ở bàn học ngoài phòng ngủ lúc 21h30.`;
+    } else {
+      return `### ⚡ Lời Khuyên Thể Chất Dành Cho Hoàng Phi Hùng (13 Tuổi)
+
+**Đánh giá tổng quan:**
+Hùng đang ở giai đoạn **"Vàng"** của tuổi dậy thì. Với chỉ số **1m57 - 60kg (BMI 24.34)**, việc thừa cân và ngồi 6h/ngày cày màn hình đang cản trở tiềm năng cao 1m78+ của bạn.
+
+**3 Bước hành động ngay hôm nay:**
+1. 🏀 **Tập bóng rổ 4 buổi/tuần:** Mỗi buổi 45-60 phút giúp đốt mỡ thừa và kích thích sụn xương.
+2. 🌙 **Đi ngủ trước 22h15:** Đón đỉnh tiết hormone tăng trưởng HGH ban đêm.
+3. 🥗 **Uống đủ 2.2L nước lọc/ngày:** Nói không với nước ngọt có ga khi chơi game!`;
+    }
+  };
+
   const handleSend = async (queryText?: string) => {
     const textToSend = queryText || inputQuery;
     if (!textToSend.trim() || loading) return;
@@ -52,27 +100,18 @@ Hãy nhấn các câu hỏi mẫu dưới đây hoặc nhập câu hỏi bất k
         }),
       });
 
-      const data = await res.json();
-      if (data.success && data.answer) {
-        setMessages([...newMessages, { sender: 'ai', text: data.answer }]);
-      } else {
-        setMessages([
-          ...newMessages,
-          {
-            sender: 'ai',
-            text: 'Rất tiếc, đã có sự cố kết nối. Hãy thử lại hoặc chọn một câu hỏi mẫu phía dưới nhé!',
-          },
-        ]);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.answer) {
+          setMessages([...newMessages, { sender: 'ai', text: data.answer }]);
+          return;
+        }
       }
+      // If server returned non-ok or error, use smart client knowledge fallback
+      setMessages([...newMessages, { sender: 'ai', text: getFallbackAnswer(textToSend) }]);
     } catch (err) {
-      console.error('Error fetching AI response:', err);
-      setMessages([
-        ...newMessages,
-        {
-          sender: 'ai',
-          text: 'Rất tiếc, đã có sự cố kết nối mạng. Bạn hãy kiểm tra lại đường truyền nhé.',
-        },
-      ]);
+      // Offline / Static GitHub Pages hosting fallback
+      setMessages([...newMessages, { sender: 'ai', text: getFallbackAnswer(textToSend) }]);
     } finally {
       setLoading(false);
     }
