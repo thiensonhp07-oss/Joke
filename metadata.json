@@ -1,0 +1,6 @@
+{
+  "name": "Hoàng Phi Hùng - Phân Tích & Đánh Giá Thói Quen Thể Hình Lớp 7",
+  "description": "Báo cáo phân tích chuyên sâu thói quen sinh hoạt, học tập, thể hình (1m57 - 60kg) và lộ trình lột xác thể lực dành cho Hoàng Phi Hùng.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
