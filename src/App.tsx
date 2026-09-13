@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { initialHungMetrics } from './data/hungData';
 import { Header } from './components/Header';
+import { ScientificTelemetryDashboard } from './components/ScientificTelemetryDashboard';
 import { BodyStatsSection } from './components/BodyStatsSection';
 import { HabitsTimeSection } from './components/HabitsTimeSection';
 import { BasketballRoutineSection } from './components/BasketballRoutineSection';
@@ -9,15 +10,16 @@ import { InteractiveSchedulePlanner } from './components/InteractiveSchedulePlan
 import { AICoachChat } from './components/AICoachChat';
 import { QuestRewards } from './components/QuestRewards';
 import { HeightSimulatorModal } from './components/HeightSimulatorModal';
-import { Sparkles, Dumbbell, ShieldAlert, CheckCircle2, Heart, Award, FileText } from 'lucide-react';
+import { Sparkles, Dumbbell, ShieldAlert, CheckCircle2, Heart, Award, FileText, BarChart3, Activity } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [viewRole, setViewRole] = useState<'student' | 'parent'>('student');
   const [isSimulatorOpen, setIsSimulatorOpen] = useState<boolean>(false);
+  const [showDetailedGrowthAnalysis, setShowDetailedGrowthAnalysis] = useState<boolean>(true);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
+    <div className="min-h-screen bg-[#070a11] text-slate-100 flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
       {/* Top Main Navigation & Profile Summary */}
       <Header
         metrics={initialHungMetrics}
@@ -46,7 +48,34 @@ export default function App() {
 
         {/* Tab Switch Routing */}
         {activeTab === 'overview' && (
-          <BodyStatsSection metrics={initialHungMetrics} viewRole={viewRole} />
+          <div className="space-y-8">
+            {/* Scientific Telemetry Dashboard (Matching User Reference Layout) */}
+            <ScientificTelemetryDashboard
+              metrics={initialHungMetrics}
+              onNavigateTab={(tab) => setActiveTab(tab)}
+              onOpenSimulator={() => setIsSimulatorOpen(true)}
+            />
+
+            {/* Toggle to expand Detailed Biometric Analysis */}
+            <div className="flex items-center justify-between pt-4 border-t border-slate-800/80">
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 text-cyan-400" />
+                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-300">
+                  Phân Tích Chi Tiết Chỉ Số &amp; Mô Phỏng Can Thiệp Thể Chất
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowDetailedGrowthAnalysis(!showDetailedGrowthAnalysis)}
+                className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-cyan-400 transition-all flex items-center gap-1.5"
+              >
+                {showDetailedGrowthAnalysis ? 'Thu Gọn Phân Tích' : 'Mở Rộng Phân Tích Chi Tiết'}
+              </button>
+            </div>
+
+            {showDetailedGrowthAnalysis && (
+              <BodyStatsSection metrics={initialHungMetrics} viewRole={viewRole} />
+            )}
+          </div>
         )}
 
         {activeTab === 'habits' && (
@@ -77,7 +106,7 @@ export default function App() {
         )}
 
         {/* Action Callout Section */}
-        <div className="bg-gradient-to-r from-cyan-950/40 via-slate-900 to-purple-950/40 rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
+        <div className="bg-gradient-to-r from-cyan-950/30 via-[#0d121d] to-purple-950/30 rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
           <div className="space-y-2 text-center sm:text-left">
             <h3 className="text-xl font-extrabold text-white font-['Space_Grotesk']">
               Khởi Động Lộ Trình Tăng Chiều Cao Cho Phi Hùng Ngay Hôm Nay!
@@ -107,7 +136,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950 py-6 px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 space-y-2">
+      <footer className="border-t border-slate-800/80 bg-[#070a11] py-6 px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 space-y-2">
         <p>
           Trang web Đánh giá &amp; Tối ưu hóa Thể chất - Dinh dưỡng - Học tập dành cho <strong className="text-slate-300">Hoàng Phi Hùng (Lớp 7)</strong>
         </p>

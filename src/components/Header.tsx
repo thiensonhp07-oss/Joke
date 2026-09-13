@@ -20,10 +20,10 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenSimulator,
 }) => {
   const tabs = [
-    { id: 'overview', label: '📊 Tổng Quan Thể Hình' },
-    { id: 'habits', label: '🎮 Thói Quen & TikTok/Game' },
+    { id: 'overview', label: '🛰️ Bảng Giám Sát Telemetry' },
     { id: 'height', label: '📈 Dự Báo Chiều Cao & Sụn' },
     { id: 'basketball', label: '🏀 Lộ Trình Bóng Rổ' },
+    { id: 'habits', label: '🎮 Thói Quen & Game/TikTok' },
     { id: 'schedule', label: '⏰ Lịch Sinh Hoạt 24h' },
     { id: 'ai-coach', label: '🤖 AI Coach Hỏi Đáp' },
     { id: 'quests', label: '🏆 Quests Kỷ Luật' },
